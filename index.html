@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de tienda en linea</title>
+    <link rel="stylesheet" href="styles.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <head class="header">
+        <div class="header-content">
+            <h1> Tienda en linea</h1>
+
+            <section class="header-actions">
+                <select id="categoryFilter" class="category-select">
+                    <option value="all">Todas las categorias</option>
+                </select>
+
+                <button id="viewCart" class="cart-button">
+                    <span class="cart-icon">🛒</span>
+                    Ver carrito
+                </button>
+
+            </section>
+        </div>
+        
+    </head>
+
+    <main class="container">
+        <div id="productList" class="products-grid"></div>
+    </main>
+    
+</body>
+</html>
