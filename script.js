@@ -49,4 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 
     })
   }
+
+    categoryFilter.addEventListener("change", () =>{
+        const selectedCategory = categoryFilter.value;
+        const filteredProducts = 
+        selectedCategory === "all" 
+        ? products 
+        : products.filter ((product) => product.category === selectedCategory);
+    displayProducts(filteredProducts);
+    })  
 });
