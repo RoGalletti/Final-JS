@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((res) => res.json())
     .then((data) => {
       products = data;
+      displayProducts(products);
       loadCategories(products);
     })
     .catch((error) => console.error("Error cargando productos: ", error));
@@ -25,6 +26,27 @@ document.addEventListener("DOMContentLoaded", () => {
         option.textContent = category.replace(/^\w/, (c) => c.toUpperCase());
 
         categoryFilter.appendChild(option);
+    });
+  }
+
+  function displayProducts(products){
+    productList.innerHTML ="";
+    products.forEach((product) => {
+        const productCard = document.createElement("div");
+        productCard.className = "product-card";
+        productCard.innerHTML = `
+            <div class="product-image">
+                <img src= "${product.image}" alt="${product.name}" loading="lazy">
+            </div>
+            <div class="product-info">
+                <h2> ${product.title}</h2>
+                <p class="product-price"> ${product.price}
+                <button class="add-to-cart" onclick="">Agregar al carrito </button>
+            </div>
+        `;
+
+        productList.appendChild(productCard);
+                
     })
   }
 });
