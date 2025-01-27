@@ -81,6 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   function showCart() {
+    if (cart.length ===0){
+        return Swal.fire({
+            icon:"info",
+            title: "Carrito vacío",
+            text: "No hay productos en el carrito",
+        });
+    }
     const cartItems = cart
       .map(
         (item) => `
