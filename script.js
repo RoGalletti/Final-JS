@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch((error) => console.error("Error cargando productos: ", error));
 
+const saveCart = localStorage.getItem("cart");
+if(saveCart) cart = JSON.parse(saveCart);
+
   function loadCategories(products) {
     const categories = [
       ...new Set(products.map((products) => products.category)),
@@ -41,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="product-info">
                 <h2> ${product.title}</h2>
                 <p class="product-price"> ${product.price}
-                <button class="add-to-cart" onclick="">Agregar al carrito </button>
+                <button class="add-to-cart" onclick="addToCart(${product.id})">Agregar al carrito </button>
             </div>
         `;
 
