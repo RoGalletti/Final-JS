@@ -15,12 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch((error) => console.error("Error cargando productos: ", error));
 
-const saveCart = localStorage.getItem("cart");
-if(saveCart) cart = JSON.parse(saveCart);
+  const savedCart = localStorage.getItem("cart");
+  if (savedCart) cart = JSON.parse(savedCart);
 
   function loadCategories(products) {
     const categories = [
-      ...new Set(products.map((products) => products.category)),
+      ...new Set(products.map((product) => product.category)),
     ];
 
     categories.forEach((category) => {
@@ -38,16 +38,15 @@ if(saveCart) cart = JSON.parse(saveCart);
       const productCard = document.createElement("div");
       productCard.className = "product-card";
       productCard.innerHTML = `
-            <div class="product-image">
-                <img src= "${product.image}" alt="${product.name}" loading="lazy">
-            </div>
-            <div class="product-info">
-                <h2> ${product.title}</h2>
-                <p class="product-price"> ${product.price}
-                <button class="add-to-cart" onclick="addToCart(${product.id})">Agregar al carrito </button>
-            </div>
-        `;
-
+        <div class="product-image">
+          <img src="${product.image}" alt="${product.name}" loading="lazy">
+        </div>
+        <div class="product-info">
+          <h2>${product.title}</h2>
+          <p class="product-price">${product.price}</p>
+          <button class="add-to-cart" onclick="addToCart(${product.id})">Agregar al carrito</button>
+        </div>
+      `;
       productList.appendChild(productCard);
     });
   }
@@ -68,7 +67,7 @@ if(saveCart) cart = JSON.parse(saveCart);
     Swal.fire({
       icon: "success",
       title: "Producto agregado",
-      texto: `${product.title} ha sido agredado al carrito`,
+      text: `${product.title} ha sido agregado al carrito`,
     });
   };
 
@@ -78,39 +77,38 @@ if(saveCart) cart = JSON.parse(saveCart);
     Swal.fire({
       icon: "success",
       title: "Producto eliminado",
-      texto: "El producto ha sido eliminado del carrito",
+      text: "El producto ha sido eliminado del carrito",
     });
     showCart();
   };
 
   function showCart() {
-    if (cart.length ===0){
-        return Swal.fire({
-            icon:"info",
-            title: "Carrito vacío",
-            text: "No hay productos en el carrito",
-        });
+    if (cart.length === 0) {
+      return Swal.fire({
+        icon: "info",
+        title: "Carrito vacío",
+        text: "No hay productos en el carrito",
+      });
     }
+
     const cartItems = cart
       .map(
         (item) => `
-        <li class ="cart-item">
-            <img src="${item.image}" class="cart-image">
-            ${item.title} - ${item.price}
-            <button class="remove-from-cart" onclick="removeFromCart(${item.id})">❌</button>
-            </li>`
+      <li class="cart-item">
+        <img src="${item.image}" class="cart-image">
+        ${item.title} - ${item.price}
+        <button class="remove-from-cart" onclick="removeFromCart(${item.id})">❌</button>
+        </li>`
       )
       .join("");
-
     Swal.fire({
       icon: "info",
       title: "Carrito de compras",
       html: `<ul>${cartItems}</ul>
-        <button id="clearCart" class="cart-clean"> Limpiar carrito </button>`,
-
+            <button id="clearCart" class="cart-clean">Limpiar carrito</button>`,
       didOpen: () => {
         const clearCartButton = document.getElementById("clearCart");
-        clearCartButoon.addEventListener("click", () => {
+        clearCartButton.addEventListener("click", () => {
           cart = [];
           localStorage.removeItem("cart");
           Swal.fire({
@@ -124,6 +122,4 @@ if(saveCart) cart = JSON.parse(saveCart);
   }
 
   viewCartButton.addEventListener("click", showCart);
-
-
 });
